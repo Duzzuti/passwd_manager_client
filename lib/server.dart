@@ -1,11 +1,20 @@
 import 'package:http/http.dart' as http;
 
 class Header{
-  Map<String, String> _header = <String, String>{};
-  late final Instruction _instruction;
+  final Map<String, String> _header = <String, String>{};
 
-  Header(Instruction instruction){
-    _instruction = instruction;
+  Header(Instruction instruction, {String? clientSecret, String? callSecret}){
+    if(instruction != Instruction.init){
+      if(clientSecret == null){
+        throw Exception("Client Secret is null, but needed for instruction ${instruction.name}");
+      }
+      if(callSecret == null){
+        throw Exception("Call Secret is null, but needed for instruction ${instruction.name}");
+      }
+      _header["clientSecret"] = clientSecret;
+      _header["callSecret"] = callSecret;
+    }
+
     _header["instruction"] = instruction.name;
   }
 
@@ -17,6 +26,10 @@ class Header{
 
 class Body{
   Map<String, String> _body = <String, String>{};
+
+  void addArgument(String key, String value){
+    _body[key] = value;
+  }
 
   Map<String, String> getBody(){
     return _body;
@@ -113,7 +126,7 @@ class Server{
       case 504:
         throw Exception("Gateway Timeout");
       default:
-        throw Exception("Unknown Error");
+        throw Exception("Unknown Error Code: ${response.statusCode}");
     }
     return response.body;
   }
