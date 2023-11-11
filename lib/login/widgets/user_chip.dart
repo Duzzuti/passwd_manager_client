@@ -33,7 +33,7 @@ class UserChip extends StatelessWidget {
                 
               ),
               onPressed: () {
-                
+                Navigator.pushNamed(context, "/login_password", arguments: userList[index]);
               },
               child: Text(
                 userList[index],

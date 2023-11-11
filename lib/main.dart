@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:passwd_manager_client/login/pages/add_existing_user_page.dart';
+import 'package:passwd_manager_client/login/pages/add_new_user_page.dart';
 import 'package:passwd_manager_client/login/pages/login_page.dart';
+import 'package:passwd_manager_client/login/pages/login_password_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +40,19 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
+          bodyMedium: TextStyle(
+            color: Colors.red[50],
+            fontSize: 20,
+          ),
         )
       ),
-      home: LoginPage(userList: userList),
+      routes: <String, WidgetBuilder>{
+        '/login': (BuildContext context) => LoginPage(userList: userList),
+        '/add_existing' :(BuildContext context) => const AddExistingUserPage(),
+        '/add_new' :(BuildContext context) => const AddNewUserPage(),
+        '/login_password' :(BuildContext context) => const LoginPasswordPage(),
+      },
+      initialRoute: '/login',
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:passwd_manager_client/login/widgets/add_user_dialog.dart';
 import 'package:passwd_manager_client/login/widgets/user_chip.dart';
 
 class LoginPage extends StatelessWidget {
@@ -26,7 +27,7 @@ class LoginPage extends StatelessWidget {
           ),
           const Spacer(),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Row(
               children: [
                 const Spacer(),
@@ -41,9 +42,12 @@ class LoginPage extends StatelessWidget {
                       animationDuration: const Duration(milliseconds: 1000),
                       visualDensity: const VisualDensity(vertical: 0.1),
                     ),
-                    onPressed: () {
-                      
-                    },
+                    onPressed: () => showDialog<String>(
+                      context: context,
+                      barrierDismissible: false,
+                      barrierColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                      builder: (BuildContext context) => const AddUserDialog(),
+                    ),
                     child: Text(
                       "Add User",
                       style: Theme.of(context).textTheme.labelMedium!.copyWith(
