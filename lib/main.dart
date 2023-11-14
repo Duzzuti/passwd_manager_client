@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:passwd_manager_client/classes/user.dart';
 import 'package:passwd_manager_client/login/pages/add_existing_user_page.dart';
 import 'package:passwd_manager_client/login/pages/add_new_user_page.dart';
+import 'package:passwd_manager_client/login/pages/loading_login_page.dart';
 import 'package:passwd_manager_client/login/pages/login_page.dart';
-import 'package:passwd_manager_client/login/pages/login_password_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,14 +15,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    List<String> userList = [];
+    List<User> userList = [];
     for (var i = 0; i < 5; i++) {
-      userList.add("User ${i+1}");
+      userList.add(User(name: "User ${i+1}"));
     }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        
         useMaterial3: true, colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 34, 9, 44))
         .copyWith(
           background: const Color.fromARGB(255, 34, 9, 44), 
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
         '/login': (BuildContext context) => LoginPage(userList: userList),
         '/add_existing' :(BuildContext context) => const AddExistingUserPage(),
         '/add_new' :(BuildContext context) => const AddNewUserPage(),
-        '/login_password' :(BuildContext context) => const LoginPasswordPage(),
+        '/loading_login' :(BuildContext context) => const LoadingLoginPage(),
       },
       initialRoute: '/login',
     );
