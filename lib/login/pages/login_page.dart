@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:passwd_manager_client/login/widgets/add_user_dialog.dart';
+import 'package:passwd_manager_client/classes/user.dart';
+import 'package:passwd_manager_client/login/dialogs/add_user_dialog.dart';
 import 'package:passwd_manager_client/login/widgets/user_chip.dart';
 
 class LoginPage extends StatelessWidget {
 
-  final List<String> userList;
+  final List<User> userList;
 
   const LoginPage({super.key, required this.userList});
 
@@ -13,7 +14,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          const Spacer(),
+          const SizedBox(height: 16),
           Expanded(
             flex: 15,
             child: ListView.builder(
@@ -27,20 +28,27 @@ class LoginPage extends StatelessWidget {
           ),
           const Spacer(),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Spacer(),
                 Expanded(
                   flex: 10,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
-                      overlayColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.surfaceVariant),
-                      shadowColor: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
-                      elevation: const MaterialStatePropertyAll(5),
-                      animationDuration: const Duration(milliseconds: 1000),
-                      visualDensity: const VisualDensity(vertical: 0.1),
+                  child: InputChip(
+                    color: MaterialStatePropertyAll(Theme.of(context).colorScheme.inversePrimary),
+                    shadowColor: Theme.of(context).colorScheme.inversePrimary,
+                    elevation: 5,
+                    padding: const EdgeInsets.all(4),
+                    label: SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        "Add User",
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          color: Theme.of(context).colorScheme.inverseSurface,
+                        ),
+                      ),
                     ),
                     onPressed: () => showDialog<String>(
                       context: context,
@@ -48,22 +56,24 @@ class LoginPage extends StatelessWidget {
                       barrierColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
                       builder: (BuildContext context) => const AddUserDialog(),
                     ),
-                    child: Text(
-                      "Add User",
-                      style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                        color: Theme.of(context).colorScheme.inverseSurface,
-                      ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                      side: BorderSide.none,
                     ),
+                    side: const BorderSide(
+                      color: Colors.transparent,
+                      width: 0,
+                    ),
+                    
                   ),
                 ),
                 const Spacer(),
               ],
             ),
           ),
-          const Spacer(),
+          const SizedBox(height: 32)
         ],
       ),
     );
   }
 }
-
