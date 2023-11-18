@@ -8,3 +8,10 @@ class User{
     return name;
   }
 }
+
+class UserLogin{
+  final User user;
+  final String password;
+
+  const UserLogin({required this.user, required this.password});
+}
