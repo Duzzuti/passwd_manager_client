@@ -55,3 +55,35 @@ class DialogActionArgs<T> extends StatelessWidget {
     );
   }
 }
+
+class DialogActionDialog extends StatelessWidget {
+
+  final String actionName;
+  final Widget actionDialog;
+
+  const DialogActionDialog({
+    super.key,
+    required this.actionName,
+    required this.actionDialog,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        Navigator.pop(context, actionName);
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          barrierColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+          builder: (BuildContext context) => actionDialog
+        );
+      },
+      child: Text(actionName,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          color: Theme.of(context).colorScheme.inversePrimary,
+        ),
+      ),
+    );
+  }
+}
