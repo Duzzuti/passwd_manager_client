@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:passwd_manager_client/login/dialogs/add_existing_user_dialog.dart';
+import 'package:passwd_manager_client/login/dialogs/add_new_user_dialog.dart';
 import 'package:passwd_manager_client/main_widgets/dialog_action.dart';
 import 'package:passwd_manager_client/main_widgets/dialog_cancel.dart';
 
-class AddUserDialog extends StatelessWidget {
+class AddUserDialog extends AlertDialog {
   const AddUserDialog({
     super.key,
   });
@@ -18,10 +20,10 @@ class AddUserDialog extends StatelessWidget {
       content: Text('Do you wanna create a new user or add an existing one?',
         style: Theme.of(context).textTheme.bodyMedium,
       ),
-      actions: const <Widget>[
+      actions:  const <Widget>[
         DialogCancel(),
-        DialogAction(actionName: "New", actionRoute: "/add_new"),
-        DialogAction(actionName: "Existing", actionRoute: "/add_existing")
+        DialogActionDialog(actionName: "New", actionDialog: AddNewUserDialog(),),
+        DialogActionDialog(actionName: "Existing", actionDialog: AddExistingUserDialog(),)
       ],
     );
   }
