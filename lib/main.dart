@@ -45,6 +45,10 @@ class MyApp extends StatelessWidget {
             color: Colors.red[50],
             fontSize: 20,
           ),
+          bodySmall: TextStyle(
+            color: Colors.red[50],
+            fontSize: 12,
+          ),
         )
       ),
       routes: <String, WidgetBuilder>{
