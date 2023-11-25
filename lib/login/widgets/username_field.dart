@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:passwd_manager_client/login/widgets/field_input_decorations/field_decos.dart';
 
 class UsernameField extends StatefulWidget {
 
   final Function(String) onTextChanged;
+  final InputFieldState state;
 
   const UsernameField({
     super.key,
     required this.onTextChanged,
+    this.state = InputFieldState.STANDARD,
   });
 
   @override
@@ -44,29 +47,13 @@ class _UsernameFieldState extends State<UsernameField> {
       },
       cursorColor: Theme.of(context).colorScheme.secondary,
       obscureText: false,
-      decoration: InputDecoration(
-        labelText: "Username",
-        floatingLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: _focused.hasFocus
-          ? Theme.of(context).colorScheme.tertiary
-          : Theme.of(context).colorScheme.inversePrimary,
-        ),
-        labelStyle: Theme.of(context).textTheme.bodyMedium,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: Colors.white,
-            width: 2,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-            width: 3,
-          ),
-        ),
-      ),
+      decoration: switch (widget.state) {
+        InputFieldState.STANDARD => StandardInputFieldDec(),
+        InputFieldState.DISABLED => DisabledInputFieldDec(),
+        InputFieldState.GOOD => GoodInputFieldDec(),
+        InputFieldState.WARNING => WarningInputFieldDec(),
+        InputFieldState.ERROR => ErrorInputFieldDec(),
+      }.getDeco(context, "Username", _focused, null, _controller),
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
         color: Theme.of(context).colorScheme.inversePrimary
       ),

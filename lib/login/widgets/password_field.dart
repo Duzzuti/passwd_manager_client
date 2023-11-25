@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:passwd_manager_client/login/widgets/field_input_decorations/field_decos.dart';
 
 class PasswordField extends StatefulWidget {
 
   final Function(String) onTextChanged;
+  final InputFieldState state;
+  final String? content;
 
   const PasswordField({
     super.key,
     required this.onTextChanged,
+    this.state = InputFieldState.STANDARD,
+    this.content,
   });
 
   @override
@@ -38,7 +43,26 @@ class _PasswordFieldState extends State<PasswordField> {
   
   @override
   Widget build(BuildContext context) {
+    IconButton sufButton = _obscureText 
+      ? IconButton(
+        onPressed: () {setState(() {
+          _obscureText = false;
+        });},
+        icon: const Icon(Icons.remove_red_eye),
+        color: Colors.white,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      )
+      : IconButton(
+        onPressed: () {setState(() {
+          _obscureText = true;
+        });},
+        icon: const Icon(Icons.remove_red_eye_outlined),
+        color: Colors.red,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      );
+    _controller.text = widget.content == null ? _controller.text : widget.content!;
     return TextFormField(
+      enabled: widget.state != InputFieldState.DISABLED,
       controller: _controller,
       onChanged: (value) {
         widget.onTextChanged(value);
@@ -46,46 +70,13 @@ class _PasswordFieldState extends State<PasswordField> {
       cursorColor: Theme.of(context).colorScheme.secondary,
       obscureText: _obscureText,
       obscuringCharacter: "*",
-      decoration: InputDecoration(
-        labelText: "Password",
-        floatingLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: _focused.hasFocus
-          ? Theme.of(context).colorScheme.tertiary
-          : Theme.of(context).colorScheme.inversePrimary,
-        ),
-        labelStyle: Theme.of(context).textTheme.bodyMedium,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: Colors.white,
-            width: 2,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.tertiary,
-            width: 3,
-          ),
-        ),
-        suffixIcon: _obscureText 
-          ? IconButton(
-            onPressed: () {setState(() {
-              _obscureText = false;
-            });},
-            icon: const Icon(Icons.remove_red_eye),
-            color: Colors.white,
-            padding: const EdgeInsets.all(16),
-          )
-          : IconButton(
-            onPressed: () {setState(() {
-              _obscureText = true;
-            });},
-            icon: const Icon(Icons.remove_red_eye_outlined),
-            color: Colors.red,
-            padding: const EdgeInsets.all(16),
-          ),
-      ),
+      decoration: switch (widget.state) {
+        InputFieldState.STANDARD => StandardInputFieldDec(),
+        InputFieldState.DISABLED => DisabledInputFieldDec(),
+        InputFieldState.GOOD => GoodInputFieldDec(),
+        InputFieldState.WARNING => WarningInputFieldDec(),
+        InputFieldState.ERROR => ErrorInputFieldDec(),
+      }.getDeco(context, "Password", _focused, sufButton, _controller),
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
         color: Theme.of(context).colorScheme.inversePrimary
       ),
