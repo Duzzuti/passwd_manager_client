@@ -76,7 +76,7 @@ class _PasswordFieldState extends State<PasswordField> {
         InputFieldState.GOOD => GoodInputFieldDec(),
         InputFieldState.WARNING => WarningInputFieldDec(),
         InputFieldState.ERROR => ErrorInputFieldDec(),
-      }.getDeco(context, "Password", _focused, sufButton, _controller),
+      }.getDeco(context, "Password", _focused, sufButton),
       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
         color: Theme.of(context).colorScheme.inversePrimary
       ),

@@ -132,6 +132,7 @@ class _AddNewUserDialogState extends State<AddNewUserDialog> {
             password1FieldState == InputFieldState.GOOD
               ? const SizedBox()
               : CheckboxText(checkBoxState: _passwordWeakAcceptBox, onChange: onCheckPasswordWeakAcceptBox, text: 'I understand that i am taking a major risk by choosing a weak password'),
+            const SizedBox(height: _padding),
             CheckboxText(checkBoxState: _passwordSecAcceptBox, onChange: onCheckPasswordSecAcceptBox, text: 'I understand that the password is the ONLY way to access the user data and there is no way to recover it'),
           ],
         ),
@@ -139,15 +140,18 @@ class _AddNewUserDialogState extends State<AddNewUserDialog> {
       actions: <Widget>[
         const DialogCancel(),
         isFilled()
-          ? DialogActionArgs(actionName: "Add User", actionRoute: "/loading_add_new_user", args: AddUserStruct(username: _username, password1: _password1, password2: _password2))
-          : DialogActionDialogWithoutPopping(actionName: "Add User", actionDialog: FormNotCompletedDialog(
-              usernameTooShort: userFieldState == InputFieldState.ERROR && _username.length < MIN_USER_CHARACTERS,
-              usernameTaken: userFieldState == InputFieldState.ERROR && users.any((element) => element.name == _username),
-              password1TooShort: password1FieldState == InputFieldState.ERROR,
-              password2NotEqual: password2FieldState == InputFieldState.ERROR,
-              secHintNotChecked: !_passwordSecAcceptBox,
-              weakHintNotCheckedWithWeakPassword: !_passwordWeakAcceptBox && password1FieldState == InputFieldState.WARNING,
-          ), dismissible: true,),
+        ? DialogActionArgs(actionName: "Add User", actionRoute: "/loading_add_new_user", args: AddUserStruct(username: _username, password1: _password1, password2: _password2))
+        : DialogActionDialogWithoutPopping(actionName: "Add User", 
+          actionDialog: FormNotCompletedDialog(
+            usernameTooShort: userFieldState == InputFieldState.ERROR && _username.length < MIN_USER_CHARACTERS,
+            usernameTaken: userFieldState == InputFieldState.ERROR && users.any((element) => element.name == _username),
+            password1TooShort: password1FieldState == InputFieldState.ERROR,
+            password2NotEqual: password2FieldState == InputFieldState.ERROR,
+            secHintNotChecked: !_passwordSecAcceptBox,
+            weakHintNotCheckedWithWeakPassword: !_passwordWeakAcceptBox && password1FieldState == InputFieldState.WARNING,
+          ), 
+          dismissible: true
+        ),
       ],
     );
   }

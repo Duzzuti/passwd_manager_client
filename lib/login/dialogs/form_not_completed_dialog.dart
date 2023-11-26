@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:passwd_manager_client/main_widgets/dialog_cancel.dart';
 
 class FormNotCompletedDialog extends AlertDialog {
+  static const double _padding = 16;
   final bool usernameTooShort;
   final bool usernameTaken;
   final bool password1TooShort;
@@ -32,29 +33,34 @@ class FormNotCompletedDialog extends AlertDialog {
         child: ListBody(
           children: <Widget>[
             if(usernameTooShort)
-              Text('Username is too short',
+              Text('-> Username is too short',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: _padding),
             if(usernameTaken)
-              Text('Username is already taken',
+              Text('-> Username is already taken',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
             if(password1TooShort)
-              Text('Password is too short',
+              Text('-> Password is too short',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: _padding),
             if(password2NotEqual)
-              Text('Passwords are not equal',
+              Text('-> Passwords are not equal',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: _padding),
             if(secHintNotChecked)
-              Text('Security hint is not checked',
+              Text('-> Security hint is not checked',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: _padding),
             if(weakHintNotCheckedWithWeakPassword)
-              Text('Weak password hint is not checked',
+              Text('-> Weak password hint is not checked',
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
+              const SizedBox(height: _padding),
           ],
         ),
       ),

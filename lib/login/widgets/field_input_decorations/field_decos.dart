@@ -11,12 +11,12 @@ enum InputFieldState{
 }
 
 abstract class InputFieldDeco{
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller);
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon);
 }
 
 class StandardInputFieldDec extends InputFieldDeco{
   @override
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller) {
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon) {
     return InputDecoration(
       isDense: true,
       labelText: label,
@@ -47,7 +47,7 @@ class StandardInputFieldDec extends InputFieldDeco{
 
 class DisabledInputFieldDec extends InputFieldDeco{
   @override
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller) {
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon) {
     return InputDecoration(
       isDense: true,
       labelText: label,
@@ -68,7 +68,7 @@ class DisabledInputFieldDec extends InputFieldDeco{
 
 class GoodInputFieldDec extends InputFieldDeco{
   @override
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller) {
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon) {
     return InputDecoration(
       isDense: true,
       labelText: label,
@@ -99,7 +99,7 @@ class GoodInputFieldDec extends InputFieldDeco{
 
 class WarningInputFieldDec extends InputFieldDeco{
   @override
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller) {
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon) {
     return InputDecoration(
       isDense: true,
       labelText: label,
@@ -130,7 +130,7 @@ class WarningInputFieldDec extends InputFieldDeco{
 
 class ErrorInputFieldDec extends InputFieldDeco{
   @override
-  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon, TextEditingController controller) {
+  InputDecoration getDeco(BuildContext context, String label, FocusNode focused, Widget? suffixIcon) {
     return InputDecoration(
       isDense: true,
       labelText: label,
